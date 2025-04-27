@@ -8,36 +8,35 @@ const ai = new GoogleGenAI({
 export async function POST(req: Request) {
   try {
     const prompt = `
-      Create a list of three open-ended and engaging questions formatted as a single string. 
-      Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, 
-      and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes 
-      that encourage friendly interaction. For example: 
-      'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?'. 
-      Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment.
-    `;
+      Generate a list of three bold, playful, and slightly savage messages in Roman Urdu, formatted as a single string using '||' as separators.
+      Each message should be directed toward the receiver — like a roast, flirty taunt, or brutally honest feedback. Avoid questions. Make it feel like a friend, classmate, or secret admirer is sending an anonymous message with no filter.
+      Keep the tone cheeky, humorous, and bold — like teasing someone’s looks, vibes, overconfidence, thirst traps, or drama. Use Pakistani cultural references to make it relatable and fun.
+      The messages should feel like: “tu bara scene hai, par confidence zyada hai”, “tera hairstyle bilkul morning show wali aunty jaisa hai”, or “itni thirsty stories post karta hai, paani bhi sharma jaye”.
+      Stay ethical and non-explicit, but don't be tame. Make them spicy enough to start a laugh, flirt, or argument.
+      Don't give initial responses like here got list of message or such things, just the list of messages.
+`;
+
 
     const resultStream = await ai.models.generateContentStream({
-      model: "gemini-1.5-pro-latest",
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      model: "gemini-2.0-flash",
+      contents: prompt,
     });
 
-    const encoder = new TextEncoder();
+
     const stream = new ReadableStream({
       async start(controller) {
         for await (const chunk of resultStream) {
-          const text = chunk.toString();
-          console.log("chunk",text);
-          
-          controller.enqueue(encoder.encode(text));
+          controller.enqueue(new TextEncoder().encode(chunk.text));
         }
         controller.close();
       },
     });
+
     return new Response(stream, {
       headers: {
-        'Content-Type': 'text/event-stream',
-      }
-    })
+        "Content-Type": "text/plain",
+      },
+    });
 
   } catch (error) {
     console.error("Streaming error:", error);

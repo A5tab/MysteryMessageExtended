@@ -91,8 +91,14 @@ function page() {
 
   if (!session || !session.user) {
     return (
-      <div className="container m-auto text-center text-4xl bg-amber-400 text-red-600">
-        You are not logged in. Login
+      <div className="min-h-screen bg-gradient-to-br from-green-700 via-slate-500 to-slate-700 py-8 px-4 md:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="mb-8 p-8 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl">
+            <div className="text-center text-4xl text-gray-200">
+              You are not logged in. Login
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -106,19 +112,29 @@ function page() {
     toast("URL copied!!!");
   }
   return (
-    <div className="container mx-auto p-6">
+    <div className="min-h-screen bg-gradient-to-br from-green-700 via-slate-500 to-slate-700 py-8 px-4 md:px-8">
+  <div className="container mx-auto max-w-6xl">
+    <div className="mb-8 p-8 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl">
       <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-200">Copy Your Unique Link</h2>
         <div className="flex items-center">
           <input
             type="text"
             value={profileUrl}
             disabled
-            className="input input-bordered w-full p-2 mr-2"
+            className="flex-1 px-4 py-3 rounded-l-xl bg-white/5 border-0 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 hover:bg-white/10 transition-colors duration-300"
           />
-          <Button onClick={copyToClipboard}>Copy</Button>
+          <button
+            onClick={copyToClipboard}
+            className="px-4 py-3 rounded-r-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white transition-all duration-300"
+          >
+            Copy
+          </button>
         </div>
       </div>
+      
+      <div className="border-t border-white/10 my-6"></div>
+      
       <div className="flex justify-center mb-6">
         <div className="flex items-center">
           <Switch
@@ -127,11 +143,14 @@ function page() {
             onCheckedChange={handleSwitchChange}
             disabled={isSwitchLoading}
           />
-          <span className="ml-2">
-            Accept Messages: {acceptMessages ? 'On' : 'Off'}
+          <span className="ml-3 text-lg text-gray-200">
+            Accept Messages: <span className={acceptMessages ? "text-green-400" : "text-red-400"}>
+              {acceptMessages ? 'On' : 'Off'}
+            </span>
           </span>
         </div>
       </div>
+      
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {messages.map(message => (
           <MessageCard
@@ -142,6 +161,9 @@ function page() {
         ))}
       </div>
     </div>
+  </div>
+</div>
+
   );
 }
 

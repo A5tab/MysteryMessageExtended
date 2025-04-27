@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from 'lucide-react'
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 function page() {
   const router = useRouter();
@@ -44,11 +45,11 @@ function page() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white">
-      <div className="w-full max-w-md p-8 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="min-h-screen bg-gradient-to-br from-green-700 via-slate-500 to-slate-700 flex justify-center items-center p-4 md:p-8">
+      <div className="w-full max-w-md p-8 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Signin to Mystery Message</h1>
-          <p className="mb-4">Login to continue your anonymous adventure</p>
+          <h1 className="bg-gradient-to-br bg-clip-text text-transparent from-gray-400 via-purple-400 to-indigo-300 leading-[1.40] text-4xl font-extrabold lg:text-5xl mb-6">Signin</h1>
+          <p className="mb-6 text-gray-300">Login to continue your anonymous adventure</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -57,11 +58,15 @@ function page() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email/Username</FormLabel>
+                  <FormLabel className="text-gray-200">Email/Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email/Username" {...field} />
+                    <Input
+                      placeholder="Email/Username"
+                      {...field}
+                      className="bg-white/5 border-0 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 rounded-xl hover:bg-white/10 transition-colors duration-300"
+                    />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-400" />
                 </FormItem>
               )}
             />
@@ -70,23 +75,37 @@ function page() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-gray-200">Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                      className="bg-white/5 border-0 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 rounded-xl hover:bg-white/10 transition-colors duration-300"
+                    />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-400" />
                 </FormItem>
               )}
             />
-            <Button type="submit" >
+            <Button
+              type="submit"
+              className="w-full rounded-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white py-2.5 shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+            >
               {form.formState.isSubmitting ? (
-                <Loader2 className="animate-spin mr-2" />
+                <div className="flex items-center justify-center">
+                  <Loader2 className="animate-spin mr-2 h-4 w-4" />
+                  <span>Please Wait</span>
+                </div>
               ) : (
                 "Signin"
               )}
             </Button>
           </form>
         </Form>
+        <div className="text-center mt-6">
+          <Link href={'/signup'} className="text-gray-300 hover:text-white transition-colors duration-300">Not Registered? <span>Create an Account</span>.</Link>
+        </div>
       </div>
     </div>
   )
