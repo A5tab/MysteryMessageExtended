@@ -38,6 +38,17 @@ function VerifyAccount() {
             console.error("Error in signup of user", error);
             const axiosError = error as AxiosError<ApiResponse>;
             let errorMessage = axiosError.response?.data.message;
+            if (axiosError.response?.status === 400) {
+                toast('Verification Failed', {
+                    description: errorMessage,
+                    style: {
+                        border: '1px solid orange',
+                        padding: '16px',
+                        color: 'orange'
+                    }
+                })
+                router.replace('/signup');
+            }
             toast('Signup Failed', {
                 description: errorMessage,
                 style: {

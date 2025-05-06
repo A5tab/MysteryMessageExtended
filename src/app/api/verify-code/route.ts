@@ -37,7 +37,7 @@ export async function POST(request: Request) {
         } else if (!isCodeNotExpired) {
             return Response.json({
                 success: false,
-                message: "Verification Code has expires plz signin again to get a new code"
+                message: "Verification Code has expires plz signup again to get a new code"
             }, { status: 400 })
         } else {
             return Response.json({

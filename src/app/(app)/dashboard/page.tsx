@@ -22,7 +22,7 @@ function page() {
     setMessages(messages.filter((message) => message._id !== messageId));
   }
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const form = useForm({
     resolver: zodResolver(acceptMessageSchema),
   })
@@ -59,8 +59,8 @@ function page() {
       }
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast(axiosError.response?.data.message, {
-        description: "Failed to get messages"
+      toast("Something went wrong", {
+        description: "Failed to fetch messages."
       });
     } finally {
       setIsSwitchLoading(false);
@@ -91,15 +91,7 @@ function page() {
 
   if (!session || !session.user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-700 via-slate-500 to-slate-700 py-8 px-4 md:px-8">
-        <div className="container mx-auto max-w-6xl">
-          <div className="mb-8 p-8 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl">
-            <div className="text-center text-4xl text-gray-200">
-              You are not logged in. Login
-            </div>
-          </div>
-        </div>
-      </div>
+      <div></div>
     );
   }
 
@@ -113,56 +105,66 @@ function page() {
   }
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-700 via-slate-500 to-slate-700 py-8 px-4 md:px-8">
-  <div className="container mx-auto max-w-6xl">
-    <div className="mb-8 p-8 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl">
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-4 text-gray-200">Copy Your Unique Link</h2>
-        <div className="flex items-center">
-          <input
-            type="text"
-            value={profileUrl}
-            disabled
-            className="flex-1 px-4 py-3 rounded-l-xl bg-white/5 border-0 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 hover:bg-white/10 transition-colors duration-300"
-          />
-          <button
-            onClick={copyToClipboard}
-            className="px-4 py-3 rounded-r-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white transition-all duration-300"
-          >
-            Copy
-          </button>
+      <div className="container mx-auto max-w-6xl">
+        <div className="mb-8 p-8 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl">
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-4 text-gray-200">Copy Your Unique Link</h2>
+            <div className="flex items-center">
+              <input
+                type="text"
+                value={profileUrl}
+                disabled
+                className="flex-1 px-4 py-3 rounded-l-xl bg-white/5 border-0 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 hover:bg-white/10 transition-colors duration-300"
+              />
+              <button
+                onClick={copyToClipboard}
+                className="px-4 py-3 rounded-r-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white transition-all duration-300"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 my-6"></div>
+
+          <div className="flex justify-center mb-6">
+            <div className="flex items-center">
+              <Switch
+                {...register('acceptMessages')}
+                checked={acceptMessages}
+                onCheckedChange={handleSwitchChange}
+                disabled={isSwitchLoading}
+              />
+              <span className="ml-3 text-lg text-gray-200">
+                Accept Messages: <span className={acceptMessages ? "text-green-400" : "text-red-400"}>
+                  {acceptMessages ? 'On' : 'Off'}
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div className="min-h-[300px] flex justify-center items-center">
+            {messages.length === 0 ? (
+              <div className="text-center text-white space-y-2">
+                <p className="text-2xl font-semibold">No messages yet 📨</p>
+                <p className="text-gray-300">Share your profile link to start receiving anonymous messages!</p>
+              </div>
+            ) : (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center w-full">
+                {messages.map((message) => (
+                  <MessageCard
+                    key={message._id as string}
+                    message={message}
+                    onMessageDelete={() => handleDeleteMessage(message._id as string)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
         </div>
-      </div>
-      
-      <div className="border-t border-white/10 my-6"></div>
-      
-      <div className="flex justify-center mb-6">
-        <div className="flex items-center">
-          <Switch
-            {...register('acceptMessages')}
-            checked={acceptMessages}
-            onCheckedChange={handleSwitchChange}
-            disabled={isSwitchLoading}
-          />
-          <span className="ml-3 text-lg text-gray-200">
-            Accept Messages: <span className={acceptMessages ? "text-green-400" : "text-red-400"}>
-              {acceptMessages ? 'On' : 'Off'}
-            </span>
-          </span>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {messages.map(message => (
-          <MessageCard
-            key={message._id as string}
-            message={message}
-            onMessageDelete={() => handleDeleteMessage(message._id as string)}
-          />
-        ))}
       </div>
     </div>
-  </div>
-</div>
 
   );
 }

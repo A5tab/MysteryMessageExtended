@@ -35,7 +35,7 @@ export default function RootLayout({
           {children}
           <Toaster toastOptions={{
             classNames: {
-              description: '!text-gray-800',
+              description: '!text-black dark:text-white',
             },
           }} />
         </body>

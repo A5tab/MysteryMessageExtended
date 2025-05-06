@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from 'lucide-react'
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { error } from "console";
 
 function page() {
   const router = useRouter();
@@ -33,6 +34,8 @@ function page() {
       password: data.password
     })
     if (result?.error) {
+      console.log(result);
+
       toast('Login Failed', {
         description: 'Incorrect Email or Password'
       })
