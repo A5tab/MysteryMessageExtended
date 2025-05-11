@@ -3,13 +3,14 @@ import { getServerSession } from 'next-auth/next';
 import dbConnect from '@/lib/dbConnect';
 import { User } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]/options';
+import { NextRequest } from 'next/server';
 
-export async function DELETE(
-  _request: Request,
-  { params }: { params: { messageid: string } }
-) {
-  const messageId = params.messageid;
+export async function DELETE(request: NextRequest) {
   await dbConnect();
+
+  const url = new URL(request.url);
+  const messageId = url.pathname.split('/').pop(); // Extract messageId from path
+
   const session = await getServerSession(authOptions);
   const _user: User = session?.user as User;
 
