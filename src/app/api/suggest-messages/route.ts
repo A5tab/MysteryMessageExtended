@@ -5,7 +5,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GOOGLE_API_KEY!,
 });
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const prompt = `
       Generate a list of three bold, playful, and slightly savage messages in Roman Urdu, formatted as a single string using '||' as separators.

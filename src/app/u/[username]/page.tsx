@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useForm } from 'react-hook-form';
 import axios, { AxiosError } from 'axios';
 import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ApiResponse } from '@/types/ApiResponse';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -227,7 +227,7 @@ function SendMessage() {
             <div className="flex flex-col items-center justify-center rounded-xl bg-white/5 backdrop-blur-sm border-0 p-8 text-center">
               <Smile className="mb-3 h-12 w-12 text-gray-400" />
               <p className="mb-2 text-gray-300">Need inspiration for your message?</p>
-              <p className="text-sm text-gray-400">Click "Get Suggestions" for some ideas</p>
+              <p className="text-sm text-gray-400">Click &quot;Get Suggestions&qout; for some ideas</p>
             </div>
           ) : (
             <SuggestiveMessageList messages={suggestionsToShow} handleMessageClick={handleMessageClick} className="bg-white/5 backdrop-blur-sm border-0 my-2" />

@@ -32,7 +32,7 @@ export async function POST(request: Request) {
         await user.save();
         return Response.json({ success: true, message: "Message sent successfully" }, { status: 200 })
     } catch (error) {
-        return Response.json({ success: false, message: "Failed to send message" }, { status: 500 })
+        return Response.json({ success: false, message: `Failed to send message\n ${error}` }, { status: 500 })
     }
     
 }

@@ -13,7 +13,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-function page() {
+function Dashboard() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
@@ -22,7 +22,7 @@ function page() {
     setMessages(messages.filter((message) => message._id !== messageId));
   }
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const form = useForm({
     resolver: zodResolver(acceptMessageSchema),
   })
@@ -59,7 +59,7 @@ function page() {
       }
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast("Something went wrong", {
+      toast(axiosError.response?.data.message, {
         description: "Failed to fetch messages."
       });
     } finally {
@@ -103,6 +103,11 @@ function page() {
     navigator.clipboard.writeText(profileUrl);
     toast("URL copied!!!");
   }
+  if (loading) {
+    return (
+      <p className="bg-amber-600 text-center text-3xl font-bold">Loading</p>
+    )
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-700 via-slate-500 to-slate-700 py-8 px-4 md:px-8">
       <div className="container mx-auto max-w-6xl">
@@ -116,12 +121,12 @@ function page() {
                 disabled
                 className="flex-1 px-4 py-3 rounded-l-xl bg-white/5 border-0 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 hover:bg-white/10 transition-colors duration-300"
               />
-              <button
+              <Button
                 onClick={copyToClipboard}
                 className="px-4 py-3 rounded-r-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white transition-all duration-300"
               >
                 Copy
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -169,4 +174,4 @@ function page() {
   );
 }
 
-export default page;
+export default Dashboard;

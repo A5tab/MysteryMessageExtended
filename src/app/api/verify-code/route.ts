@@ -16,6 +16,16 @@ export async function POST(request: Request) {
     try {
         const { username, code } = await request.json();
 
+        const result = VerifyCodeQuerySchema.safeParse({ code });
+
+        if (!result.success) {
+            return Response.json({
+                success: false,
+                message: 'Invalid Code Format'
+            }, {
+                status: 400
+            })
+        }
         const decodedUsername = decodeURIComponent(username)
         const user = await UserModel.findOne({ username: decodedUsername })
         if (!user) {

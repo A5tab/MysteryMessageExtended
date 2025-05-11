@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, CardContent } from '../ui/card'
 
-function SuggestiveMessageList({ messages, handleMessageClick, className = "" }: { messages: string[], handleMessageClick: (message: string) => void, className?: string }) {
+function SuggestiveMessageList({ messages, handleMessageClick, className = "" }: { messages: string[], handleMessageClick: (_message: string) => void, className?: string }) {
     return (
         <>
             {

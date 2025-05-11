@@ -11,9 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from 'lucide-react'
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { error } from "console";
 
-function page() {
+function Signin() {
   const router = useRouter();
 
   // zod implememtation
@@ -113,4 +112,4 @@ function page() {
     </div>
   )
 }
-export default page
+export default Signin
