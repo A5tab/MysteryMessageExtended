@@ -148,14 +148,16 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="min-h-[300px] flex justify-center items-center">
+          <div className="min-h-[300px] w-full px-4 py-8 sm:px-6 lg:px-8 flex justify-center items-center">
             {messages.length === 0 ? (
-              <div className="text-center text-white space-y-2">
-                <p className="text-2xl font-semibold">No messages yet 📨</p>
-                <p className="text-gray-300">Share your profile link to start receiving anonymous messages!</p>
+              <div className="text-center text-white space-y-3 max-w-md mx-auto">
+                <p className="text-2xl sm:text-3xl font-semibold">No messages yet 📨</p>
+                <p className="text-gray-300 text-base sm:text-lg">
+                  Share your profile link to start receiving anonymous messages!
+                </p>
               </div>
             ) : (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center w-full">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl mx-auto">
                 {messages.map((message) => (
                   <MessageCard
                     key={message._id as string}
@@ -166,6 +168,7 @@ function Dashboard() {
               </div>
             )}
           </div>
+
 
         </div>
       </div>
