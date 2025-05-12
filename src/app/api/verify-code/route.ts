@@ -4,20 +4,14 @@ import { z } from 'zod';
 import { verifySchema } from "@/schemas/verifySchema";
 
 
-const VerifyCodeQuerySchema = z.object({
-    verifyCode: verifySchema
-})
-
-
 export async function POST(request: Request) {
     await dbConnect();
 
 
     try {
         const { username, code } = await request.json();
-
-        const result = VerifyCodeQuerySchema.safeParse({ code });
-
+        const result = verifySchema.safeParse({ code });
+        
         if (!result.success) {
             return Response.json({
                 success: false,
@@ -26,8 +20,8 @@ export async function POST(request: Request) {
                 status: 400
             })
         }
-        const decodedUsername = decodeURIComponent(username)
-        const user = await UserModel.findOne({ username: decodedUsername })
+        
+        const user = await UserModel.findOne({ username })
         if (!user) {
             return Response.json({
                 success: false,
@@ -53,11 +47,10 @@ export async function POST(request: Request) {
             return Response.json({
                 success: false,
                 message: "Incorrect verification Code"
-            }, { status: 500 })
+            }, { status: 400 })
         }
 
     } catch (error) {
-        console.error("Error verifying user", error);
         return Response.json({
             success: false,
             message: "Error verifying user"
