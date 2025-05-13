@@ -42,37 +42,42 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
     };
 
     return (
-        <Card className="w-full max-w-md bg-neutral-900 border border-neutral-700 text-white shadow-md transition-all hover:shadow-lg rounded-2xl relative">
-            <CardHeader className="p-5">
-                <div className="flex justify-between items-center">
-                    <CardTitle className="text-lg font-semibold truncate max-w-[85%]">
-                        Anonymous Message
-                    </CardTitle>
+        <Card className="w-full max-w-md bg-gradient-to-br from-indigo-900 to-purple-900 border border-indigo-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-amber-500"></div>
+
+            <CardHeader className="p-6 relative">
+                <div className="absolute top-3 right-3">
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
-                            <Button size="icon" variant="ghost" className="text-red-500">
+                            <Button size="icon" variant="ghost" className="text-indigo-200 hover:text-red-400 hover:bg-indigo-800/50 rounded-full h-8 w-8 p-0">
                                 <X className="w-5 h-5" />
                             </Button>
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="bg-indigo-950 border border-indigo-800 text-white">
                             <AlertDialogHeader>
-                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
+                                <AlertDialogTitle className="text-yellow-400">Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription className="text-indigo-200">
                                     This message will be permanently deleted. This action cannot be undone.
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={handleDeleteConfirm}>
+                                <AlertDialogCancel className="bg-indigo-800 text-white hover:bg-indigo-700">Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                    onClick={handleDeleteConfirm}
+                                    className="bg-red-600 hover:bg-red-700"
+                                >
                                     Delete
                                 </AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
                 </div>
-                <CardDescription className="text-gray-300 whitespace-pre-wrap break-words text-sm">
-                    {message.content}
-                </CardDescription>
+
+                <div className="bg-indigo-800/30 p-5 rounded-xl border border-indigo-700/50 w-full mt-2">
+                    <CardDescription className="text-indigo-100 whitespace-pre-wrap break-words text-base leading-relaxed">
+                        {message.content}
+                    </CardDescription>
+                </div>
             </CardHeader>
         </Card>
     );

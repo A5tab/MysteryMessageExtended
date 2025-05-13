@@ -9,23 +9,42 @@ function Navbar() {
     const user: User = session?.user as User;
 
     return (
-        <nav className="dark:bg-gray-900">
-            <div className="bg-gradient-to-br from-green-700 via-slate-500 to-slate-700 md:px-8 container mx-auto px-6 py-3 flex justify-between items-center">
+        <nav className="w-full shadow-lg">
+            <div className="bg-gradient-to-r from-indigo-900 to-purple-900 md:px-8 container mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
                 <Link href="/"
-                    className="text-3xl font-bold bg-gradient-to-br from-gray-400 via-purple-400 to-indigo-300 bg-clip-text text-transparent dark:text-gray-200">
-                    Mystery Message
+                    className="text-3xl font-bold relative">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500 pb-1 inline-block">
+                        Mystery Message
+                    </span>
                 </Link>
-                {
-                    session ? (<>
-                        <span className="text-gray-200 dark:text-gray-200">{user?.username || user.email}</span>
-                        <Button onClick={() => signOut()} className="ml-4 bg-amber-600">
-                            Logout
-                        </Button>
-                    </>
-                    ) : (<Link href={'/signin'} className="text-white dark:text-gray-200 bg-gradient-to-br from-gray-400 via-purple-400 to-indigo-300 rounded-xl p-3 text-xl"> Login</Link>)
-                }
+
+                <div className="flex items-center gap-4">
+                    {session ? (
+                        <>
+                            <div className="bg-indigo-800/50 px-4 py-2 rounded-full text-yellow-100 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                </svg>
+                                <span className="truncate max-w-[150px]">{user?.username || user.email}</span>
+                            </div>
+                            <Button
+                                onClick={() => signOut()}
+                                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30"
+                            >
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        <Link
+                            href={'/signin'}
+                            className="bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-indigo-900 font-bold px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-yellow-400/30 text-lg"
+                        >
+                            Login
+                        </Link>
+                    )}
+                </div>
             </div>
-        </nav >
+        </nav>
     )
 }
 
