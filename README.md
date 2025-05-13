@@ -1,7 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+Hi ! 
 
+Feeling excited to share my new Next.JS project.
+
+Check it out here:
+
+https://mystery-message-extended.vercel.app/
+
+and source code:
+
+https://github.com/A5tab/MysteryMessageExtended
+
+This project was created while learning Next.JS. Next.js is a powerful framework built on top of react providing more features like Server side rendering, SEO, file base routing make it easier to write your backend API and UI part in same framework. 
+
+This project not only helps me learn the Next.js but also give me a chance to learn many other tools with it.
+
+
+
+First let me introduce you to my project 'MysteryMessageExtended'. An anonymous feedback app where anyone could provide a link to accept feedback anonymously because i believe true feedback is given only when its anonymous. So anyone could get that link open it anywhere without any tension of any authentication, identity tracking could write anything while also getting feedback suggestions from AI I used Gemini API for this. Receiving user has its own dashboard securely accessed with next-auth authentication flow. User could also disable receiving feedback saving himself from receiving more messages.
+
+
+
+Tools & Technologies Explored:
+
+Gemini
+
+NextAuth
+
+Typescript
+
+React-Hook-Form
+
+ShadcnUI
+
+TailwindCSS
+
+Resend-Email for OTP codes
+
+and obviously Next.js
+
+
+
+Key-Features:
+
+Debouncing Effect
+
+OTP Code through email
+
+Authentication
+
+Suggestions from AI
+
+Anonymity to Sender
+
+
+
+Follow me for more amazing projects.
+
+Connect on Linkedin:
+https://www.linkedin.com/in/muhammad-aftab-2bb8a8264/
+
+
+If running on local machine:
 First, run the development server:
 
 ```bash
@@ -15,22 +76,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
