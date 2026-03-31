@@ -38,7 +38,6 @@ export const authOptions: NextAuthOptions = {
                     throw new Error(err)
                 }
             }
-
         })
     ],
     callbacks: {
